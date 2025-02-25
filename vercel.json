@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+      {
+          "src": "./index.js",
+          "use": "@vercel/node"
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "/index.js",
+          "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+          "headers": {
+              "Content-Security-Policy": "default-src 'self'; font-src 'self' data:; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws:"
+          }
+      }
+  ]
+}
