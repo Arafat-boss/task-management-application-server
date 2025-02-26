@@ -1,4 +1,4 @@
-require("dotenv").config(); // dotenv ইম্পোর্ট করে এনভায়রনমেন্ট ভ্যারিয়েবল লোড করা
+require("dotenv").config();
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
@@ -34,6 +34,10 @@ async function run() {
       const result = await allTaskCollection.insertOne(data);
       res.send(result);
     });
+    app.get("/tasks", async(req, res)=>{
+      const result = await allTaskCollection.find().toArray()
+      res.send(result)
+    })
     app.get("/tasks/:email", async (req, res) => {
       const email = req.params.email;
       const query = {email: email}
@@ -51,7 +55,7 @@ async function run() {
 
     app.put("/tasks/:id", async (req, res) => {
       const id = req.params.id;
-      const updatedTask = req.body; // ক্লায়েন্ট থেকে আসা নতুন তথ্য
+      const updatedTask = req.body; 
       const query = { _id: new ObjectId(id) };
 
       const updateDoc = {
